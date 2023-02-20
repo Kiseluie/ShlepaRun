@@ -131,7 +131,7 @@ table {
 .enemy {
   width: 50px;
   height: 100px;
-  background: transparent url("./image/шлёпа-PhotoRoom.png-PhotoRoom.png") center / cover no-repeat;
+  background: transparent url("./imgs/пельмень.png") center / cover no-repeat;
   position: absolute;
 }
 
@@ -140,7 +140,7 @@ table {
   height: 100vh;
   position: relative;
   margin: auto;
-  background: repeat-y 20% url(./image/texture.jpg) ;
+  background: repeat-y 20% url("./imgs/backgrounds/texture.jpg") ;
   overflow: hidden;
 }
 
