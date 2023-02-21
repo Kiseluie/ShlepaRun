@@ -129,9 +129,9 @@ table {
 
 .car,
 .enemy {
-  width: 50px;
-  height: 100px;
-  background: transparent url("./imgs/пельмень.png") center / cover no-repeat;
+  width: 80px;
+  height: 80px;
+  background: transparent url("./imgs/hero.png") center / cover no-repeat;
   position: absolute;
 }
 
