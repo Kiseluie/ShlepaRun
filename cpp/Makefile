@@ -1,5 +1,7 @@
 #OBJS specifies which files to compile as part of the project
-OBJS = main.cpp Texture.hpp Texture.cpp
+OBJS = ./src/main.cpp \
+	   ./src/Texture.hpp \
+	   ./src/Texture.cpp
 
 #CC specifies which compiler we're using
 CC = g++
@@ -14,9 +16,25 @@ LINKER_FLAGS = -lSDL2 -lSDL2_image
 #OBJ_NAME specifies the name of our exectuable
 OBJ_NAME = main
 
-DIRS = -I./src/
+BUILD_DIR = ./build
 
 #This is the target that compiles our executable
 all : $(OBJS)
-	$(CC) $(OBJS) $(DIRS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
-	cat ./Makefile
+	make -s clean-all
+	make -s copy-media
+	make -s compilation
+
+clean-all : 
+	echo "Начато удаление каталога build"
+	[ -d $(BUILD_DIR) ] && rm -R $(BUILD_DIR)
+	echo "Каталог build удалён.\n"
+
+copy-media:
+	echo "Начато копирование медиа файлов"
+	cp -R ./media $(BUILD_DIR)
+	echo "Копирование медиа файлов завершино\n"
+
+compilation:
+	echo "Начато компилирование программы"
+	$(CC) $(OBJS) $(DIRS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(BUILD_DIR)/$(OBJ_NAME)
+	echo "Компилирование завершено\n"
