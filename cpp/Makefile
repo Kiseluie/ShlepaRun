@@ -16,6 +16,7 @@ LINKER_FLAGS = -lSDL2 -lSDL2_image
 #OBJ_NAME specifies the name of our exectuable
 OBJ_NAME = main
 
+#BUILD_DIR path where final applocation
 BUILD_DIR = ./build
 
 #This is the target that compiles our executable
@@ -25,16 +26,22 @@ all : $(OBJS)
 	make -s compilation
 
 clean-all : 
-	echo "Начато удаление каталога build"
+	@echo "Начато удаление каталога build"
 	[ -d $(BUILD_DIR) ] && rm -R $(BUILD_DIR)
-	echo "Каталог build удалён.\n"
+	@echo "Каталог build удалён.\n"
 
 copy-media:
-	echo "Начато копирование медиа файлов"
+	@echo "Начато копирование медиа файлов"
 	cp -R ./media $(BUILD_DIR)
-	echo "Копирование медиа файлов завершино\n"
+	@echo "Копирование медиа файлов завершино\n"
 
 compilation:
-	echo "Начато компилирование программы"
+	@echo "Начато компилирование программы"
 	$(CC) $(OBJS) $(DIRS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(BUILD_DIR)/$(OBJ_NAME)
-	echo "Компилирование завершено\n"
+	@echo "Компилирование завершено\n"
+
+re-compilation:
+	@echo "Удаление бинарного файла программы"
+	rm $(BUILD_DIR)/$(OBJ_NAME)
+	@echo "Удаление бинарного файла программы завершено\n"
+	make -s compilation
