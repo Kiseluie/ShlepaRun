@@ -31,6 +31,7 @@ SDL_Renderer* gRenderer = NULL;
 //Scene textures
 LTexture gFooTexture;
 LTexture gBackgroundTexture;
+LTexture gShlepaTexture;
 
 
 bool init() {
@@ -96,6 +97,12 @@ bool loadMedia() {
 		success = false;
 	}
 
+	//Load Shlepa
+	if( !gShlepaTexture.loadFromFile( "./media/images/shlepa.png", gRenderer ) ) {
+		printf( "Failed to load Shlepa texture image!\n" );
+		success = false;
+	}
+
 	return success;
 }
 
@@ -130,6 +137,13 @@ int main( int argc, char* args[] ) {
 			//Event handler
 			SDL_Event e;
 
+			int x{0};
+			int y{0};
+			int dx{0};
+			int dy{0};
+			int speed{3};
+			const int max_speed{20};
+
 			//While application is running
 			while( !quit ) {
 				//Handle events on queue
@@ -138,11 +152,48 @@ int main( int argc, char* args[] ) {
 					if( e.type == SDL_QUIT ) {
 						quit = true;
 					} else if ( e.type == SDL_KEYDOWN ) {
-						if ( e.key.keysym.sym == SDLK_ESCAPE ) {
+						if(e.key.keysym.sym == SDLK_ESCAPE) {
 							quit = true;
+						}
+						switch(e.key.keysym.sym) {
+							case SDLK_w:
+							dy -= speed;
+							break;
+
+							case SDLK_s:
+							dy += speed;
+							break;
+						}
+						switch(e.key.keysym.sym) {
+							case SDLK_a:
+							dx -= speed;
+							break;
+
+							case SDLK_d:
+							dx += speed;
+							break;
 						}
 					}
 				}
+
+				
+
+				if (dy > max_speed) {
+					dy = max_speed;
+				} else if (dy < - max_speed) {
+					dy = -max_speed;
+				}
+
+				if (dx > max_speed) {
+					dx = max_speed;
+				} else if (dx < - max_speed) {
+					dx = -max_speed;
+				}
+
+				x += dx;
+				y += dy;
+
+				printf("x: %d\ny: %d\ndx: %d\ndy: %d\n", x, y, dx, dy);
 
 				//Clear screen
 				SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
@@ -153,6 +204,9 @@ int main( int argc, char* args[] ) {
 
 				//Render Foo' to the screen
 				gFooTexture.render( 240, 190, gRenderer );
+
+				//Render Shlepa texture to screen
+				gShlepaTexture.render(x, y, gRenderer);				
 
 				//Update screen
 				SDL_RenderPresent( gRenderer );

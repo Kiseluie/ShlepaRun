@@ -1,15 +1,18 @@
-Copyright Notice:
------------------
-The files within this zip file are copyrighted by Lazy Foo' Productions (2004-2022)
-and may not be redistributed without written permission.
+Посмотреть разные туториалы
+https://wiki.linsdl.org/SDL2/Tutorials
 
-This project is linked against:
-----------------------------------------
-Windows:
-SDL2
-SDL2main
-SDL2_image
+Досмотреть Lazy Foo'
 
-*nix:
-SDL2
-SDL2_image
+Уменьшить Шлёпу
+
+Не дать Шлёпе выйти за границы экрана
+
+Сделать класс Шлёпа/Герой Shlepa/Hero
+Сделать класс Враг
+
+Сделать класс Игра Game
+
+Ограничить FPS 30 или 60
+
+По возможности отделить FPS рендеринг от игового FPS
+
