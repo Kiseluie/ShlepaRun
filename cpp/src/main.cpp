@@ -152,7 +152,7 @@ int main( int argc, char* args[] ) {
 					if( e.type == SDL_QUIT ) {
 						quit = true;
 					} else if ( e.type == SDL_KEYDOWN ) {
-						if(e.key.keysym.sym == SDLK_ESCAPE) {
+						if(e.key.keysym.sym == SDLK_ESCAPE || e.key.keysym.sym == SDLK_q) {
 							quit = true;
 						}
 						switch(e.key.keysym.sym) {
@@ -192,8 +192,6 @@ int main( int argc, char* args[] ) {
 
 				x += dx;
 				y += dy;
-
-				printf("x: %d\ny: %d\ndx: %d\ndy: %d\n", x, y, dx, dy);
 
 				//Clear screen
 				SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
