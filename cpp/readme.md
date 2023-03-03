@@ -3,6 +3,8 @@ https://wiki.linsdl.org/SDL2/Tutorials
 
 Досмотреть Lazy Foo'
 
+Сделать Кросплатформенную компиляцию Windows + Linux
+
 Уменьшить Шлёпу
 как решить 
 (

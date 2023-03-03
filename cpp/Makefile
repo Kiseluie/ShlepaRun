@@ -26,13 +26,14 @@ all : $(OBJS)
 	make -s compilation
 
 clean-all : 
-	@echo "Начато удаление каталога build"
+	@echo "Начата очистка каталога build"
 	[ -d $(BUILD_DIR) ] && rm -R $(BUILD_DIR)
-	@echo "Каталог build удалён.\n"
+	mkdir $(BUILD_DIR)
+	@echo "Каталог build очищен.\n"
 
 copy-media:
 	@echo "Начато копирование медиа файлов"
-	cp -R ./media $(BUILD_DIR)
+	cp -r ./media $(BUILD_DIR)/
 	@echo "Копирование медиа файлов завершино\n"
 
 compilation:

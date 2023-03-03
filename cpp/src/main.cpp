@@ -8,10 +8,16 @@ and may not be redistributed without written permission.*/
 #include <string>
 #include "Texture.hpp"
 
-//Screen dimension constants
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
+#include <iostream>
 
+
+
+//Screen dimension constants
+const int SCREEN_WIDTH = 1000;
+const int SCREEN_HEIGHT = 640;
+
+const int SCREEN_FPS = 60;
+const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
 
 //Starts up SDL and creates window
 bool init();
@@ -32,6 +38,7 @@ SDL_Renderer* gRenderer = NULL;
 LTexture gFooTexture;
 LTexture gBackgroundTexture;
 LTexture gShlepaTexture;
+
 
 
 bool init() {
@@ -142,7 +149,7 @@ int main( int argc, char* args[] ) {
 			int dx{0};
 			int dy{0};
 			int speed{3};
-			const int max_speed{20};
+			const int max_speed{21};
 
 			//While application is running
 			while( !quit ) {
@@ -190,8 +197,36 @@ int main( int argc, char* args[] ) {
 					dx = -max_speed;
 				}
 
+				if ( x < 0 || SCREEN_WIDTH < x || y < 0 || SCREEN_HEIGHT < y ) {
+					dx = 0;
+					dy = 0;
+				}
+
+				if ( x < 0 ) {
+					x = 0;	
+				}
+
+				if ( SCREEN_WIDTH <= x + gShlepaTexture.getWidth() ) {
+					x =  SCREEN_WIDTH - gShlepaTexture.getWidth(); 
+				}
+
+				if ( y < 0 ) {
+					y = 0;	
+				}
+
+				if ( SCREEN_HEIGHT <= y + gShlepaTexture.getHeight()) {
+					y = SCREEN_HEIGHT - gShlepaTexture.getHeight();	
+				}
+
 				x += dx;
 				y += dy;
+
+				
+				std::cout << "l r: " << x << ' ' << x + gShlepaTexture.getWidth() << '\n' <<
+							 "t b: " << y << ' ' << y + gShlepaTexture.getHeight() << '\n' <<
+							 "w h: " << gShlepaTexture.getWidth() << ' ' << gShlepaTexture.getHeight() << '\n' <<
+							 "W H: " << SCREEN_WIDTH << ' ' << SCREEN_HEIGHT << '\n' <<
+							 "W <= l + h >> " << (SCREEN_WIDTH <= x + gShlepaTexture.getWidth()) << "\n\n";
 
 				//Clear screen
 				SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
@@ -204,7 +239,7 @@ int main( int argc, char* args[] ) {
 				gFooTexture.render( 240, 190, gRenderer );
 
 				//Render Shlepa texture to screen
-				gShlepaTexture.render(x, y, gRenderer);				
+				gShlepaTexture.render(x, y, gRenderer);
 
 				//Update screen
 				SDL_RenderPresent( gRenderer );
